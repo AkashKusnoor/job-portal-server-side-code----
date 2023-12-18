@@ -28,11 +28,12 @@ export const registerController = async (req,res,next ) => {
             message:'User created Successfully',
             user:{
                 name:user.name,
+                lastNmae:user.lastName,
                 email:user.email,
                 location: user.location,
 
             },
-            token,  
+            token
         });
 };
 
@@ -45,7 +46,7 @@ export const loginController = async (req,res,next)=>{
     }
 
     //find user by email
-    const user = await userModel.findOne({email}).select("+password")
+    const user = await userModel.findOne({email}).select("+password")   // select("+password") - to not to show password
     if(!user){
         next('Invalid Username or Password');
     }

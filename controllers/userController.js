@@ -3,7 +3,7 @@ import userModel from "../models/userModel.js";
 export const updateUserController = async (req,res,next) =>{
     const {name,email,lastName,location} = req.body;
     //validation
-    if(!name || !email || !lastName  ){
+    if(!name || !email || !lastName || !location ){
         next("Please provide all fields");
     }
     const user = await userModel.findOne({_id: req.user.userId})

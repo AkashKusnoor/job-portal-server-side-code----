@@ -1,6 +1,6 @@
 import  express  from "express";
-import userAuth from "../middelwares/authMiddleware.js";  
 import { updateUserController } from "../controllers/userController.js";
+import { requireSignIn } from "../middelwares/authMiddleware.js";
 
 //router object
 const router = express.Router()
@@ -11,7 +11,7 @@ const router = express.Router()
 
 
 //UPDATE USER  || PUT
-router.put('/update-user',userAuth, updateUserController)
+router.put('/update-user',requireSignIn, updateUserController)
 
 
 export default router;

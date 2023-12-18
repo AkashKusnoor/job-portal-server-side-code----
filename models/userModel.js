@@ -23,11 +23,19 @@ const userSchema = new mongoose.Schema({
         type: String,
         require: [true, 'Password is required'],
         minlength: [6, "Password length should be grater than 6 character"],
-        select: true,
+        select: true,      //To not display password    // to displaypassword use select:false
     },
     location: {
         type: String,
         require: "India",
+    },
+    isOnline:{
+        type:String,
+        default:'0'
+    },
+    role:{
+        type:Number,
+        default:0,
     },
 },
     { timestamps: true }
@@ -49,7 +57,7 @@ userSchema.methods.comparePassword = async function (userPassword) {
 
 //JSON WEB TOKEN
 userSchema.methods.createJWT = function () {
-    return JWT.sign({ userId: this._id }, process.env.JWT_SECRET, { expiresIn: '1d' })
+    return JWT.sign({ userId:this._id}, process.env.JWT_SECRET, { expiresIn: '1d' })
 }
 
 export default mongoose.model('User', userSchema);
